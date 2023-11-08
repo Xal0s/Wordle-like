@@ -1,15 +1,20 @@
-function shuffle(listeDeMots) {
-    listeDeMots.sort(() => Math.random() - 0.5);
-};
-
 let chaine = "";
 let chaine2 = "";
 let index = 0;
 let caractere = "";
-
-let listeDeMots = ['aaaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee', 'fffff'];
+let propositionTemp = "";
+let resultatTemp = "";
+let lettreTemp = "";
+let numeroProposition = 0;
+let positionChaine = 0;
+let indexClavier = 0;
+let clavierTemp = "azertyuiopqsdfghjklmwxcvbn";
+let clavier = [];
+for (let cpt = 0; cpt < clavierTemp.length; cpt++) { // FONCTIONNE créée une première grille clavier avec 'b' comme blanc pour les touches
+    clavier[cpt] = [clavierTemp[cpt], 'b'];
+};
+let listeDeMots = ['aafff', 'bbbbb', 'ccdcc', 'ddedd', 'eefee', 'fafff'];
 shuffle(listeDeMots); // on mélange la listeDeMots
-console.log(listeDeMots);
 
 let tirerAuSort = listeDeMots; // TirerAuSort est la liste de mots mélangés qui sert de réserve de mots pour les parties successives.
 console.log(`tirer au sort : ${tirerAuSort} `);
@@ -22,8 +27,13 @@ console.log(tirerAuSort);
 
 let proposition = "fabcf"; // on indique une proposition de l'utilisateur pour les tests
 console.log(proposition);
+
 let numeroTentative = 0
 let existeDansDictionnaire = false;
+// #######################################################################################################
+function shuffle(listeDeMots) {
+    listeDeMots.sort(() => Math.random() - 0.5);
+};
 
 function testDictionnaire(proposition) { // FONCTIONNE teste si le mot choisi par l'utilisateur vient de rentrer une proposition 
     if (listeDeMots.includes(proposition)) {
@@ -39,8 +49,6 @@ function testDictionnaire(proposition) { // FONCTIONNE teste si le mot choisi pa
 function analyseProposition(propositon) { // FONCTIONNE on calcule une chaine de caractères 'couleur' qui reprend 
     let couleur = "ggggg";
     for (let cpt = 0; cpt < 5; cpt++) {
-        console.log(`cpt=:${cpt}`);
-
         for (let cpt2 = 0; cpt2 < 5; cpt2++) {
             if (proposition[cpt] == solution[cpt]) {
                 chaine = remplacerChaine(couleur, cpt, 'v');
@@ -58,7 +66,7 @@ function analyseProposition(propositon) { // FONCTIONNE on calcule une chaine de
     };
     console.log(chaine);
     console.log(`couleur : ${couleur}`);
-    grilles.unshift([numeroTentative, proposition, couleur]);
+    grilles.push([numeroTentative, proposition, couleur]);
     console.log(grilles);
 };
 
@@ -75,6 +83,55 @@ function remplacerChaine(chaine, index, caractere) { // FONCTIONNE on remplace d
     return chaine;
 };
 
+function modifierClavier(grilles) {
+    for (indexClavier = 0 ; indexClavier < clavier.length ; indexClavier++) {
+        for (numeroProposition = 0; numeroProposition < grilles.length; numeroProposition++) {
+            resultatTemp = grilles[numeroProposition][2];
+            propositionTemp = grilles[numeroProposition][1];
+            for (positionChaine = 0; positionChaine < 5; positionChaine++) {
+                lettreTemp = propositionTemp[positionChaine];
+                switch (resultatTemp[positionChaine]) {
+                    case 'v':
+                        ecritureClavier(lettreTemp, 'v');
+                    case 'j':
+                        ecritureClavier(lettreTemp, 'j');
+                };
+            };
+        };
+    };
+    return clavier;
+};
+
+function ecritureClavier(lettreTemp, caractere){
+    for (let indexClavier2 = 0 ; indexClavier2 < clavier.length ; indexClavier2++) {
+        if (clavier[indexClavier2][0] == lettreTemp){
+            if (caractere == 'v'){
+                clavier[indexClavier2][1] = 'v';
+            } else if(caractere == 'j' && clavier[indexClavier2][1] != 'v'){
+                clavier[indexClavier2][1] = 'j';
+            };
+        };
+    }; 
+};
+
+// ######################################################################################################
+
 testDictionnaire(proposition);
 console.log(existeDansDictionnaire);
 analyseProposition(proposition);
+console.log(`grilles : ${grilles}`);
+console.log(grilles[0][2]);
+modifierClavier(grilles);
+console.log(clavier);
+console.log(clavier.length)
+
+proposition = "ddaae"; // on indique une proposition de l'utilisateur pour les tests
+numeroTentative++
+testDictionnaire(proposition);
+console.log(existeDansDictionnaire);
+analyseProposition(proposition);
+console.log(`grilles : ${grilles}`);
+console.log(grilles[0][2]);
+modifierClavier(grilles);
+console.log(clavier);
+console.log(clavier.length)
