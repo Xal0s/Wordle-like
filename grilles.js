@@ -66,7 +66,7 @@ function analyseProposition(propositon) { // FONCTIONNE on calcule une chaine de
     };
     console.log(chaine);
     console.log(`couleur : ${couleur}`);
-    grilles.push([numeroTentative, proposition, couleur]);
+    grilles.push([proposition, couleur]);
     console.log(grilles);
 };
 
@@ -86,8 +86,8 @@ function remplacerChaine(chaine, index, caractere) { // FONCTIONNE on remplace d
 function modifierClavier(grilles) {
     for (indexClavier = 0 ; indexClavier < clavier.length ; indexClavier++) {
         for (numeroProposition = 0; numeroProposition < grilles.length; numeroProposition++) {
-            resultatTemp = grilles[numeroProposition][2];
-            propositionTemp = grilles[numeroProposition][1];
+            resultatTemp = grilles[numeroProposition][1];
+            propositionTemp = grilles[numeroProposition][0];
             for (positionChaine = 0; positionChaine < 5; positionChaine++) {
                 lettreTemp = propositionTemp[positionChaine];
                 switch (resultatTemp[positionChaine]) {
@@ -119,19 +119,21 @@ function ecritureClavier(lettreTemp, caractere){
 testDictionnaire(proposition);
 console.log(existeDansDictionnaire);
 analyseProposition(proposition);
-console.log(`grilles : ${grilles}`);
-console.log(grilles[0][2]);
 modifierClavier(grilles);
-console.log(clavier);
-console.log(clavier.length)
+
 
 proposition = "ddaae"; // on indique une proposition de l'utilisateur pour les tests
 numeroTentative++
 testDictionnaire(proposition);
 console.log(existeDansDictionnaire);
 analyseProposition(proposition);
+modifierClavier(grilles);
+
+proposition = "ccaac"; // on indique une proposition de l'utilisateur pour les tests
+numeroTentative++
+testDictionnaire(proposition);
+console.log(existeDansDictionnaire);
+analyseProposition(proposition);
 console.log(`grilles : ${grilles}`);
-console.log(grilles[0][2]);
 modifierClavier(grilles);
 console.log(clavier);
-console.log(clavier.length)
