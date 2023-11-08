@@ -1,0 +1,49 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20vh;
+    background-color: rgb(49, 7, 133);
+}
+
+.bouton_menu, .chrono{
+    width: 50vh;
+    height: 10vh;
+    margin: 2vh;
+    font-size: 1.5rem;
+    border-radius: 10px;
+}
+
+h1{
+    color: white;
+    margin-bottom: 10vh;
+}
+
+.chrono{   
+    background-color: whitesmoke;
+    margin-left: 2vh;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bouton_menu:hover, .chrono:hover{
+    background-color: black;
+    color: blueviolet;
+    transform: scale(1.2);
+
+}
+
+.checkbox_menu{
+    display: none;
+    background-color: black;
+}
