@@ -18,8 +18,8 @@ for (let cpt = 0; cpt < clavierTemp.length; cpt++) { // FONCTIONNE créée une p
 };
 shuffle(listeDeMots); // on mélange la listeDeMots
 
-let tirerAuSort = listeDeMots;
-//let tirerAuSort = {... listeDeMots}; // TirerAuSort est la liste de mots mélangés qui sert de réserve de mots pour les parties successives.
+let tirerAuSort = listeDeMots.slice(); // copie en profondeur de la liste de mots mystères.
+
 let grilles = [];
 let solution = tirerAuSort.pop(); // 'solution' prend la valeur du mot qui est à deviner. On le retire des mots pris dans les parties futures.
 console.log(`mot tiré au sort : ${solution}`);
@@ -35,16 +35,12 @@ function testDictionnaire(proposition) { // FONCTIONNE teste si le mot choisi pa
     console.log(tirerAuSort);
     if (listeDeMots.includes(proposition)) {
         existeDansDictionnaire = true;
-    } else if (proposition == solution) {
-        existeDansDictionnaire = true;
     } else {
         existeDansDictionnaire = false;
     };
     console.log(existeDansDictionnaire);
     return existeDansDictionnaire;
 };
-
-
 
 function analyseProposition(proposition) { // FONCTIONNE on calcule une chaine de caractères 'couleur' qui reprend 
     let couleur = "ggggg";
