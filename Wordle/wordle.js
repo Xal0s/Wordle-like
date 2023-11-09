@@ -38,8 +38,8 @@ function intialize() { //la fonction intialize génère la grille de jeu et le c
     // Creer le clavier Virtuel
     let keyboard = [
         ["A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P"],
-        ["Q ", "S", "D", "F", "G", "H", "J", "K", "L", " "],
-        ["Enter", "Z", "X", "C", "V", "B", "N", "M", "⌫" ]
+        ["Q", "S", "D", "F", "G", "H", "J", "K", "L", "M"],
+        ["Enter", "W", "X", "C", "V", "B", "N", "⌫" ]
     ]
 
     for (let i = 0; i < keyboard.length; i++) {
@@ -200,28 +200,6 @@ function update() { //La fonction update est appelée lorsqu'un mot est soumis. 
             }
         }
     }
-function showVictoryScreen(score, attempts) {
-        const victoryScreen = document.getElementById("victory-screen");
-        const scoreElement = document.getElementById("score");
-        const attemptsElement = document.getElementById("attempts");
-      
-        scoreElement.textContent = score;
-        attemptsElement.textContent = attempts;
-      
-        victoryScreen.classList.remove("hidden");
-      }
-
-        const playAgainButton = document.getElementById("play-again");
-        playAgainButton.addEventListener("click", () => {
-            resetGame(); // Remettez le jeu à zéro ici
-            showVictoryScreen.classList.add("hidden");
-
-      });
-      
-
-
-
-
 
     row += 1; //commencer une nouvelle ligne
     col = 0; //commencer à 0 pour une nouvelle ligne
