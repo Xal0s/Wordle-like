@@ -1,6 +1,8 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
+    background-color: rgb(69, 16, 173);
+    color: white;
 }
 
 hr {
@@ -39,13 +41,13 @@ hr {
 }
 
 .correct {
-    background-color: #6AAA64;
+    background-color: #37ff25;
     color: white;
     border-color: white;
 }
 
 .present {
-    background-color: #C9B458;
+    background-color: #ffd92e;
     color: white;
     border-color: white;
 }
@@ -104,6 +106,7 @@ hr {
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: black;
   }
   
   .hidden {
