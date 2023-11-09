@@ -16,10 +16,10 @@ let clavier = [];
 for (let cpt = 0; cpt < clavierTemp.length; cpt++) { // FONCTIONNE créée une première grille clavier avec 'b' comme blanc pour les touches
     clavier[cpt] = [clavierTemp[cpt], 'b'];
 };
-// let listeDeMots = ['AAFFF', 'BBBBB', 'CCCCC', 'DDDDD', 'EEFEE', 'FAFFF'];
 shuffle(listeDeMots); // on mélange la listeDeMots
 
-let tirerAuSort = listeDeMots; // TirerAuSort est la liste de mots mélangés qui sert de réserve de mots pour les parties successives.
+let tirerAuSort = listeDeMots;
+//let tirerAuSort = {... listeDeMots}; // TirerAuSort est la liste de mots mélangés qui sert de réserve de mots pour les parties successives.
 let grilles = [];
 let solution = tirerAuSort.pop(); // 'solution' prend la valeur du mot qui est à deviner. On le retire des mots pris dans les parties futures.
 console.log(`mot tiré au sort : ${solution}`);
@@ -32,15 +32,19 @@ function shuffle(listeDeMots) {
 };
 
 function testDictionnaire(proposition) { // FONCTIONNE teste si le mot choisi par l'utilisateur vient de rentrer une proposition 
+    console.log(tirerAuSort);
     if (listeDeMots.includes(proposition)) {
         existeDansDictionnaire = true;
-        console.log(existeDansDictionnaire);
+    } else if (proposition == solution) {
+        existeDansDictionnaire = true;
     } else {
         existeDansDictionnaire = false;
-        console.log(existeDansDictionnaire);
-    }
+    };
+    console.log(existeDansDictionnaire);
     return existeDansDictionnaire;
 };
+
+
 
 function analyseProposition(proposition) { // FONCTIONNE on calcule une chaine de caractères 'couleur' qui reprend 
     let couleur = "ggggg";
@@ -116,18 +120,30 @@ function ecritureClavier(lettreTemp, caractere) {
     };
 };
 
+function reussite(numeroProposition) {
+    if (numeroTentative == 1) {
+        console.log(`Bravo ! vous avez trouvé le mot mystère en une seule tentative !!!`);
+    } else {
+        console.log(`Bravo ! vous avez trouvé le mot mystère en ${numeroTentative} tentatives.`);
+    };
+};
+
 function entreeNouvelleProposition(proposition) {
     console.log(`entree : ${proposition}`);
     numeroTentative++
     testDictionnaire(proposition);
     if (existeDansDictionnaire == false) {
-        alert('pas dans le dictionnaire');
+        alert('Le mot choisi n\'est pas dans le dictionnaire, rejouez !');
     } else {
         analyseProposition(proposition);
         console.log(`grilles : ${grilles}`);
         modifierClavier(grilles);
         console.log(clavier);
+        if (grilles[grilles.length - 1][1] == 'vvvvv') {
+            reussite(numeroTentative);
+        };
     };
+
 };
 
 const clickEnter = function () {
@@ -138,17 +154,3 @@ const clickEnter = function () {
     return proposition;
 };
 
-
-
-// ######################################################################################################
-
-// modifierClavier(grilles);
-
-// proposition = "CCAAC"; // on indique une proposition de l'utilisateur pour les tests
-// numeroTentative++
-// testDictionnaire(proposition);
-// console.log(existeDansDictionnaire);
-// analyseProposition(proposition);
-// console.log(`grilles : ${grilles}`);
-// modifierClavier(grilles);
-// console.log(clavier);
