@@ -111,11 +111,12 @@ li{
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: .3s;
-    left: 65px;
+    left: 25px;
 }
 
 .chrono .toggle.active{
     background:cornflowerblue ;
+    
 }
 
 .menu_game_mode{
