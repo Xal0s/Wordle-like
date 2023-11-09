@@ -13,12 +13,12 @@ let positionChaine = 0;
 let indexClavier = 0;
 let clavierTemp = "AZERTYUIOPQSDFGHJKLMWXCVBN";
 let clavier = [];
-for (let cpt = 0; cpt < clavierTemp.length; cpt++) { // FONCTIONNE créée une première grille clavier avec 'b' comme blanc pour les touches
+for (let cpt = 0; cpt < clavierTemp.length; cpt++) { // créée une première grille clavier avec 'b' comme blanc pour les touches potentiellement valables
     clavier[cpt] = [clavierTemp[cpt], 'b'];
 };
 shuffle(listeDeMots); // on mélange la listeDeMots
 
-let tirerAuSort = listeDeMots.slice(); // copie en profondeur de la liste de mots mystères.
+let tirerAuSort = listeDeMots.slice(); // copie en profondeur de la liste de mots mystères sur une seconde liste qui servira à tirer les mots mystères une seule fois
 
 let grilles = [];
 let solution = tirerAuSort.pop(); // 'solution' prend la valeur du mot qui est à deviner. On le retire des mots pris dans les parties futures.
@@ -27,28 +27,24 @@ console.log(`mot tiré au sort : ${solution}`);
 let numeroTentative = 0;
 let existeDansDictionnaire = false;
 // #######################################################################################################
-function shuffle(listeDeMots) {
+function shuffle(listeDeMots) { // mélange la liste de mots
     listeDeMots.sort(() => Math.random() - 0.5);
 };
 
-function testDictionnaire(proposition) { // FONCTIONNE teste si le mot choisi par l'utilisateur vient de rentrer une proposition 
-    console.log(tirerAuSort);
+function testDictionnaire(proposition) { // teste si le mot choisi par l'utilisateur est présent dans le dictionnaire de mots 
     if (listeDeMots.includes(proposition)) {
         existeDansDictionnaire = true;
     } else {
         existeDansDictionnaire = false;
     };
-    console.log(existeDansDictionnaire);
+    console.log(`Existe dans le dictionnaire ? ${existeDansDictionnaire}`);
     return existeDansDictionnaire;
 };
 
-function analyseProposition(proposition) { // FONCTIONNE on calcule une chaine de caractères 'couleur' qui reprend 
+function analyseProposition(proposition) { // on calcule une chaine de caractères 'couleur' qui reprend le couleurs de chaque caractère de la proposition 
     let couleur = "ggggg";
     let propositionAnalysee = proposition;
     let solutionAnalysee = solution;
-    console.log(`proposition envoyée à l'analyse : ${propositionAnalysee}`);
-    console.log(`SOLUTION envoyée à l'analyse : ${solution}`);
-
 
     for (let cpt = 0; cpt < 5; cpt++) { // on teste d'abord les lettres bien placées et on modifie la chaîne 'couleur'
         if (propositionAnalysee[cpt] == solutionAnalysee[cpt]) {
@@ -57,8 +53,6 @@ function analyseProposition(proposition) { // FONCTIONNE on calcule une chaine d
             propositionAnalysee = remplacerChaine(propositionAnalysee, cpt, '.');
         };
     };
-    console.log(`proposition Analysee : ${propositionAnalysee}`);
-
     for (let cpt = 0; cpt < 5; cpt++) { // on teste ensuite les lettres mal placées et on modifie la chaîne couleur
         for (let cpt2 = 0; cpt2 < 5; cpt2++) {
             if (propositionAnalysee[cpt] == solutionAnalysee[cpt2]) {
@@ -72,7 +66,7 @@ function analyseProposition(proposition) { // FONCTIONNE on calcule une chaine d
     console.log(grilles);
 };
 
-function remplacerChaine(chaine, index, caractere) { // FONCTIONNE on remplace dans la chaine le caractère placé à un index donné par le caractère passé à la fonction
+function remplacerChaine(chaine, index, caractere) { // on remplace dans la chaine le caractère placé à un index donné par le caractère passé à la fonction
     switch (index) {
         case 0:
             chaine2 = caractere + chaine.substring(index + 1);
@@ -104,7 +98,7 @@ function modifierClavier(grilles) {
     return clavier;
 };
 
-function ecritureClavier(lettreTemp, caractere) {
+function ecritureClavier(lettreTemp, caractere) { // écriture des couleurs de chaque lettre du clavier en évitant qu'une lettre mal placée sur une tentative récente remplace l'information si la lettre avait été trouvée bien placée auparavant
     for (let indexClavier2 = 0; indexClavier2 < clavier.length; indexClavier2++) {
         if (clavier[indexClavier2][0] == lettreTemp) {
             if (caractere == 'v') {
@@ -116,7 +110,7 @@ function ecritureClavier(lettreTemp, caractere) {
     };
 };
 
-function reussite(numeroProposition) {
+function reussite(numeroProposition) { // fonction appelée quand le mot mystère est trouvé
     if (numeroTentative == 1) {
         console.log(`Bravo ! vous avez trouvé le mot mystère en une seule tentative !!!`);
     } else {
@@ -139,13 +133,11 @@ function entreeNouvelleProposition(proposition) {
             reussite(numeroTentative);
         };
     };
-
 };
 
-const clickEnter = function () {
+const clickEnter = function () { // fonction appelée par la page html
     let proposition = document.getElementById("domTextElement").value;
     document.getElementById("valueInput").innerHTML = proposition;
-    console.log(proposition);
     entreeNouvelleProposition(proposition);
     return proposition;
 };
