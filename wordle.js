@@ -14,15 +14,19 @@ var guessList = []
 guessList = guessList.concat(wordList);
 // Ces deux listes sont fusionnées pour créer une liste complète de mots possibles.
 
-var height = 5;
+var height = 6;
 var width = 5;
 var row = 0;
 var col = 0;
-var totalAttempts = 0;  // Variable pour suivre le nombre total d'essais
+var totalAttempts = 0;
 var score = 0;
 var successfulAttempts = 0;
 var gameOver = false;
+var correct = 0;
+let attemptsOnWord = 0
 var word = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
+console.log(word)
+
 // Fonction appelée lorsque la page est chargée
 window.onload = function () {
   initialize();
@@ -30,11 +34,16 @@ window.onload = function () {
   var storedScore = localStorage.getItem("score");
   var storedAttempts = localStorage.getItem("attempts");
   var storedWinPercentage = localStorage.getItem("winPercentage");
-  console.log(word)
+  var storedSuccessfulAttempts = localStorage.getItem("successfulAttempts");
+
   // Affichage des statistiques si elles existent
-  if (storedScore !== null && storedAttempts !== null && storedWinPercentage !== null) {
-    document.getElementById("score").innerText = storedScore;
-    document.getElementById("attempts").innerText = storedAttempts;
+  if (storedScore !== null && storedAttempts !== null && storedWinPercentage !== null && storedSuccessfulAttempts !== null) {
+    score = parseInt(storedScore, 10);
+    totalAttempts = parseInt(storedAttempts, 10);
+    successfulAttempts = parseInt(storedSuccessfulAttempts, 10);
+
+    document.getElementById("score").innerText = score;
+    document.getElementById("attempts").innerText = successfulAttempts + " sur " + totalAttempts;
     document.getElementById("win-percentage").innerText = storedWinPercentage + "%";
   }
 }
@@ -44,8 +53,9 @@ function initialize() {
   score = 0;
   successfulAttempts = 0;
   totalAttempts = 0;
+  correct = 0;
+  attemptsOnWord = 0;
   gameOver = false;
-  
 
   for (let r = 0; r < height; r++) {
     for (let c = 0; c < width; c++) {
@@ -129,14 +139,6 @@ function processInput(e) {
   else if (e.code == "Enter") {
     update();
   }
-
-  if (!gameOver && row == height) {
-    gameOver = true;
-    document.getElementById("reponse").innerText = word;
-    if (successfulAttempts > 0) {
-      showVictoryScreen();
-    }
-  }
 }
 
 // Fonction de mise à jour du jeu
@@ -151,15 +153,13 @@ function update() {
   }
 
   guess = guess.toUpperCase();
+  attemptsOnWord += 1; // Incrémente le nombre total d'essais
 
-  totalAttempts += 1; // Incrémente le nombre total d'essais
-
-  if (!guessList.includes(guess)) {
+  if (!wordList.includes(guess)) {
     document.getElementById("reponse").innerText = "Pas dans le Dictionnaire";
     return;
   }
 
-  let correct = 0;
   let letterCount = {};
 
   for (let i = 0; i < word.length; i++) {
@@ -187,14 +187,23 @@ function update() {
       correct += 1;
       letterCount[letter] -= 1;
     }
+  }
 
-    if (correct == width) {
-      gameOver = true;
-      successfulAttempts++;
-      score += width - row + 1;
-      document.getElementById("reponse").innerText = word;
-      showVictoryScreen();
-    }
+  // Vérification de la victoire après la boucle
+  if (correct === width) {
+    gameOver = true;
+    successfulAttempts++;
+    totalAttempts += 1; // Incrémente le nombre total d'essais
+    score += width - row + 1;
+    document.getElementById("reponse").innerText = word;
+    showVictoryScreen();
+  }
+
+  // Vérification de la défaite après la boucle
+  if (!gameOver && attemptsOnWord === 6) {
+    totalAttempts += 1; // Incrémente le nombre total d'essais
+    gameOver = true;
+    showDefeatScreen();
   }
 
   for (let c = 0; c < width; c++) {
@@ -228,18 +237,42 @@ function showVictoryScreen() {
 
   if (victoryScreen) {
     // Calcul du pourcentage de victoire
-    var winPercentage = (successfulAttempts / totalAttempts) * 100;
+    let winPercentage = (successfulAttempts / totalAttempts) * 100;
 
     // Sauvegarde des statistiques dans le localStorage
     localStorage.setItem("score", score);
-    localStorage.setItem("attempts", successfulAttempts);
+    localStorage.setItem("attempts", totalAttempts);
     localStorage.setItem("winPercentage", winPercentage.toFixed(2));
+    localStorage.setItem("successfulAttempts", successfulAttempts);
 
     // Affichage des statistiques
     document.getElementById("score").innerText = score;
-    document.getElementById("attempts").innerText = successfulAttempts;
+    document.getElementById("attempts").innerText = successfulAttempts + " sur " + totalAttempts;
     document.getElementById("win-percentage").innerText = winPercentage.toFixed(2) + "%";
 
     victoryScreen.style.display = "block";
+  }
+}
+
+// Fonction d'affichage de l'écran de défaite
+function showDefeatScreen() {
+  var defeatScreen = document.getElementById("defeat-screen");
+
+  if (defeatScreen) {
+    // Calcul du pourcentage de victoire
+    let winPercentage = (successfulAttempts / totalAttempts) * 100;
+
+    // Sauvegarde des statistiques dans le localStorage
+    localStorage.setItem("score", score);
+    localStorage.setItem("attempts", totalAttempts);
+    localStorage.setItem("winPercentage", winPercentage.toFixed(2));
+    localStorage.setItem("successfulAttempts", successfulAttempts);
+
+    // Affichage des statistiques
+    document.getElementById("score_defeat").innerText = score;
+    document.getElementById("attempts_defeat").innerText = successfulAttempts + " sur " + totalAttempts;
+    document.getElementById("win-percentage_defeat").innerText = winPercentage.toFixed(2) + "%";
+
+    defeatScreen.style.display = "block";
   }
 }

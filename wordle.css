@@ -32,7 +32,7 @@ hr {
     margin: 2.5px;
 
     /* Text */
-    color: black;
+    color: white;
     font-size: 36px;
     font-weight: bold;
     display: flex;
@@ -56,6 +56,11 @@ hr {
     background-color: #787C7E;
     color: white;
     border-color:white;
+}
+
+#retour_menu{
+    width: 9vh;
+    height: 2.9vh;
 }
 
 
@@ -107,9 +112,27 @@ hr {
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     color: black;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+#defeat-screen {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: black;
+
   }
   
-  .hidden {
+.hidden {
     display: none;
-  }
+}
   
