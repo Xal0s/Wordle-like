@@ -140,7 +140,7 @@ function update() {
   //commencer a traiter les suggestion
   let correct = 0;
   let letterCount = {};
-  ////garder une trace de la séquence des lettres; ex Willy—->{ k:1 ,  E:1, N:2, Y: 1}
+  ////garder une trace de la séquence des lettres; ex Willy—->{ W:1 ,  E:1, N:2, Y: 1}
   for (let i = 0; i < word.length; i++) {
     let letter = word[i];
 
@@ -179,7 +179,7 @@ function update() {
   for (let c = 0; c < width; c++) {
     let currTile = document.getElementById(row.toString() + '-' + c.toString());
     let letter = currTile.innerText;
-    //igniorer la lettre si elle marquer correct
+    //ignorer la lettre si elle marquer correct
     if (!currTile.classList.contains("correct")) {
       if (word.includes(letter) && letterCount[letter] > 0) {
         currTile.classList.add("present");
@@ -208,8 +208,32 @@ function showVictoryScreen() {
   document.getElementById("attempts").innerText = successfulAttempts;
 }
 
+
+// Ajoutez la fonction pour afficher l'écran de défaite
+function showDefeatScreen() {
+  defeatScreen.style.display = "block";
+// Ajoutez ces lignes pour gérer l'écran de défaite
+  var defeatScreen = document.getElementById("defeat-screen");
+  var defeatButton = document.getElementById("replay-button");
+  defeatButton.addEventListener("click", resetGame);
+}
+// Dans la fonction update(), vérifiez si le joueur a épuisé tous les essais
+if (!gameOver && row === height) {
+  gameOver = true;
+  document.getElementById("reponse").innerText = word;
+  if (successfulAttempts > 0) {
+    showVictoryScreen();
+  } else {
+    showDefeatScreen();
+  }
+}   
+
+
+
+
 //document.getElementById("play-again").addEventListener("click", intialize()); 
   
   //intialize()
  // var victoryScreen = document.getElementById("victory-screen");
  // victoryScreen.style.display = "none";
+

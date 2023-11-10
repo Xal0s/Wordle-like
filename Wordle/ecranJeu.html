@@ -22,8 +22,14 @@
             <h2>Félicitations ! Vous avez gagné !</h2>
             <p>Votre score : <span id="score">0</span></p>
             <p>Nombre d'essais : <span id="attempts">0</span></p>
-            //<button onclick="initialize()" id="play-again">Rejouer</button>
+            <button onclick="initialize()" id="play-again">Rejouer</button>
           </div>
+        <div id="defeat-screen" class="shown">
+            <h1>Défaite</h1>
+            <p>Vous n'avez pas réussi à deviner le mot.</p>
+            <button id="replay-button">Rejouer</button>
+        </div>
+          
         <script src="wordle.js"></script>
     </body>
 </html>
