@@ -14,7 +14,7 @@ var guessList = []
 guessList = guessList.concat(wordList);
 // Ces deux listes sont fusionnées pour créer une liste complète de mots possibles.
 
-var height = 5;
+var height = 6;
 var width = 5;
 var row = 0;
 var col = 0;
@@ -23,6 +23,7 @@ var score = 0;
 var successfulAttempts = 0;
 var gameOver = false;
 var word = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
+
 // Fonction appelée lorsque la page est chargée
 window.onload = function () {
   initialize();
@@ -187,6 +188,7 @@ function update() {
       correct += 1;
       letterCount[letter] -= 1;
     }
+    
 
     if (correct == width) {
       gameOver = true;
@@ -194,6 +196,10 @@ function update() {
       score += width - row + 1;
       document.getElementById("reponse").innerText = word;
       showVictoryScreen();
+    }
+    if (totalAttempts === 6 && correct !== width) {
+      gameOver = true
+      showDefeatScreen();
     }
   }
 
@@ -225,7 +231,7 @@ function update() {
 // Fonction d'affichage de l'écran de victoire
 function showVictoryScreen() {
   var victoryScreen = document.getElementById("victory-screen");
-
+  
   if (victoryScreen) {
     // Calcul du pourcentage de victoire
     var winPercentage = (successfulAttempts / totalAttempts) * 100;
@@ -241,5 +247,29 @@ function showVictoryScreen() {
     document.getElementById("win-percentage").innerText = winPercentage.toFixed(2) + "%";
 
     victoryScreen.style.display = "block";
+  }
+}
+// Fonction d'affichage de l'écran de defaite
+function showDefeatScreen() {
+  var defeatScreen = document.getElementById("defeat-screen");
+  console.log("def")
+
+  if (defeatScreen) {
+    console.log("def")
+    // Calcul du pourcentage de victoire
+    var winPercentage = (successfulAttempts / totalAttempts) * 100;
+   
+
+    // Sauvegarde des statistiques dans le localStorage
+    localStorage.setItem("score", score);
+    localStorage.setItem("attempts", successfulAttempts);
+    localStorage.setItem("winPercentage", winPercentage.toFixed(2));
+
+    // Affichage des statistiques
+    document.getElementById("score").innerText = score;
+    document.getElementById("attempts").innerText = successfulAttempts;
+    document.getElementById("win-percentage").innerText = winPercentage.toFixed(2) + "%";
+
+    defeatScreen.style.display = "block";
   }
 }
