@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>Wordle</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="wordle.css">  
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="index.html">
+        <h1 id="title">Wordle</h1>
+    </a>
+    <hr>
+    <br>
+    <div id="board"></div>
+    <br>
+    <h1 id="reponse"></h1>
+    <div id="victory-screen" class="hidden">
+        <h2>Félicitations ! Vous avez gagné !</h2>
+        <p>Votre score : <span id="score">0</span></p>
+        <p>Votre pourcentage de victoire est <span id="win-percentage">0</span></p>
+        <p>Nombre d'essais réussis : <span id="attempts">0</span></p>
+        <a href="ecranJeu.html">
+            <button id="play-again">Rejouer</button>
+        </a>
+        <a href="index.html">
+            <button id="retour_menu">Menu</button>
+        </a>
+    </div>
+    <div id="defeat-screen">
+        <h2> Dommage, vous avez perdu !</h2>
+        <p>Votre score : <span id="score_defeat">0</span></p>
+        <p>Votre pourcentage de victoire est <span id="win-percentage_defeat">0</span></p>
+        <p>Nombre d'essais réussis : <span id="attempts_defeat">0</span></p>
+        <a href="ecranJeu.html">
+            <button id="play-again">Rejouer</button>
+        </a>
+        <a href="index.html">
+            <button id="retour_menu">Menu</button>
+        </a>
+    </div>
+    <time class="time">05:00</time>
+
+    <script src="wordle.js"></script>
+</body>
+</html>

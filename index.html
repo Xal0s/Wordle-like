@@ -4,29 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
     <title>Wordle</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
 
     </header>
-    <h1>Bienvenue sur WORDLE</h1>
+    <h1 class="game_name">WORDLE</h1>
     <div class="menu">
-        <div class="new_game">
+        <div onclick = "displayGameModes()" class="new_game">
             <button class="bouton_menu">Nouvelle Partie</button>
         </div>
-        <div class="game_modes">
-            <button class="bouton_menu">Modes de Jeu</button>
-        </div>
-        <div class="rules">
+        <div onclick ="displayRules()" class="rules">
             <button class="bouton_menu">Règles</button>
         </div>
-        <div class="chrono"> 
-            <label class="contaier">  
-                <input type="checkbox" class="checkbox_menu"> Chrono
-            </label>
+        <div class="chrono" onclick="sliderToggle()"> 
+            <div class="toggle">
+                <div class="toggle_button" id="toggle_button"></div>
+            </div>
+            <div class="etat_toggle" >Chrono OFF</div>
         </div> 
     </div>
-
+    <div id="modal_rules" class="modal_rules">
+        <h1>Règles du Wordle</h1>
+        <button onclick = "hideRules()" class="button_menu_modal"><ion-icon name="close-outline"></ion-icon></button>
+        <ul>
+            <li>Un mot de 5 lettres va être choisi au hasard</li>
+            <li>Vous devrez réussir à trouver ce mot en 6 essais</li>
+            <li>Si vous avez entré une lettre contenue dans le mot et bien placée, la case deviendra verte</li>
+            <li>Si vous avez entré une lettre contenue dans le mot mais mal placée, la case deviendra jaune</li>
+            <li>Si vous avez entré une lettre qui n'est pas contenue dans le mot, la case ne changera pas de couleur</li>
+            <li>Moins vous utilisez d'essais plus votre score est important</li>
+            <li>Si vous voulez rajouter du challenge, le chrono peut vous aider</li>
+        </ul>
+    </div>
+    <div class="menu_game_mode" id="menu_game_mode">
+        <h1>Mode de Jeu</h1>
+        <button onclick = "hideGameModes()" class="button_quit_game_modes"><ion-icon name="close-outline"></ion-icon></button>
+        <p>Un mot de 5 lettres, 6 essais. Montrez ce que vous savez faire</p>
+        <a href="ecranJeu.html">
+            <button class ="select_mode">Normal</button>
+        </a>
+            <p>Vous vous ennuyez en mode normal ? Voici une double grille qui devrait vous challenger</p>
+        <a href="ecran_double_wordle.html">
+            <button class ="select_mode">Double-Wordle</button>
+        </a>
+        <p>Affrontez un ami, 6 essais chacun, Qui de vous deux est le meilleur ?</p>
+        <button class ="select_mode">MultiJoueur</button>
+        
+        
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

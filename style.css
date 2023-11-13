@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Calistoga', serif;
 }
 
 body {
@@ -10,20 +11,25 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin-top: 20vh;
-    background-color: rgb(49, 7, 133);
+    margin-top: 10vh;
+    background-color: rgb(69, 16, 173);
 }
 
-.bouton_menu, .chrono{
+.bouton_menu, .chrono, .select_mode{
     width: 50vh;
     height: 10vh;
     margin: 2vh;
     font-size: 1.5rem;
     border-radius: 10px;
+    cursor: pointer;
 }
 
-h1{
+.game_name{
+    font-size: 4rem;
+    font-weight: bold;
     color: white;
+    letter-spacing: 2px;
+    font-family: 'Calistoga', serif;
     margin-bottom: 10vh;
 }
 
@@ -33,17 +39,160 @@ h1{
     border-radius: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 100px;
 }
 
 .bouton_menu:hover, .chrono:hover{
     background-color: black;
     color: blueviolet;
-    transform: scale(1.2);
+    transform: scale(1.09);
+
+}
+.select_mode:hover{
+    background-color: black;
+    color: blueviolet;
+    transform: scale(1.05);
+}
+
+.modal_rules, .modal_rules h1{
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    margin-bottom: 1vh;
+}
+
+.modal_rules{
+    -webkit-box-shadow: 4px 5px 15px 5px #000000; 
+    box-shadow: 4px 5px 15px 5px #000000;
+}
+
+li{
+    list-style: none;
+    max-width: 60vh;
+    height: 7vh;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.modal_rules{
+    position: absolute;
+    top: 20vh;
+    left: -500vh;
+    transition: .2s;
+}
+
+.button_menu_modal{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    position: relative;
+    top: -40px;
+    left: 180px;
+}
+
+.chrono .toggle{
+    position: relative;
+    width: 90px;
+    height: 50px;
+    background: #444;
+    border-radius: 30px;
+}
+
+.chrono .toggle .toggle_button{
+    position: absolute;
+    top: 5px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    transition: .3s;
+    left: 5px;
+}
+
+.chrono .toggle.active{
+    background:cornflowerblue ;
+    
+}
+
+.menu_game_mode{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 30px;
+    position: relative;
+    bottom: 50vh;
+    left: 500vh;
+    transition: .3s;
+    -webkit-box-shadow: 4px 5px 15px 5px #000000; 
+    box-shadow: 4px 5px 15px 5px #000000;
+}
+
+.menu_game_mode p{
+    text-align: center;
+    max-width: 350px;
+}
+
+.menu_game_mode > p{
+    margin-top: 10px;
+}
+
+.button_quit_game_modes{
+    position: relative;
+    top: -30px;
+    left: 150px;
+    max-width: 30px;
+    font-size: 2rem;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+time {
+    display: block;
+    position: absolute;
+    left: 85%;
+    top: 20px;
+    font-family: 'Calistoga', serif;
+    font-size: 3rem;
+    font-weight: bold;
 
 }
 
-.checkbox_menu{
-    display: none;
-    background-color: black;
+
+@media (width <=1080px) {
+    time {
+        left: auto;
+        right: 5%;
+        font-size: 2rem;
+    }
+    #title {
+        font-size: 3rem;
+        font-weight: 400;
+
+    }
+}
+
+
+@media (width <=500px) {
+    time {
+        left: auto;
+        right: 5%;
+        font-size: 1.2rem;
+    }
+
+    #title {
+        font-size: 2rem;
+        font-weight: 300;
+
+    }
+
 }
